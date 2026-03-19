@@ -21,18 +21,20 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
+
+### Installation
 ```sh
-npm install
+yarn install
 ```
 
-### Compile and Hot-Reload for Development
+### Hot-Reload for Development
 
 ```sh
-npm run dev
+yarn dev
 ```
 
-### Compile and Minify for Production
+### Compile
 
 ```sh
-npm run build
+yarn build
 ```
