@@ -38,3 +38,18 @@ yarn dev
 ```sh
 yarn build
 ```
+
+## CI/CD
+
+This project uses GitHub Actions for CI/CD:
+
+- `CI` runs `yarn build` on every push and pull request
+- `Deploy to GitHub Pages` builds and publishes the `dist/` output from `main`
+
+### GitHub Pages setup
+
+Go to `Settings > Pages` in your repository and set the source to `GitHub Actions`.
+
+After that, each push to `main` will deploy the latest production build automatically.
+
+Because GitHub Pages is static hosting, the deployed app uses hash-based routes such as `/#/a` so page refreshes do not return a 404.
