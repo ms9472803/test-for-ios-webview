@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GH_PAGES_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -33,7 +35,7 @@ jobs:
         run: corepack enable
 
       - name: Verify GitHub Pages is enabled
-        if: ${{ secrets.GH_PAGES_TOKEN == '' }}
+        if: ${{ env.GH_PAGES_TOKEN == '' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_API_URL: ${{ github.api_url }}
@@ -69,14 +71,14 @@ jobs:
           PY
 
       - name: Configure GitHub Pages
-        if: ${{ secrets.GH_PAGES_TOKEN != '' }}
+        if: ${{ env.GH_PAGES_TOKEN != '' }}
         uses: actions/configure-pages@v5
         with:
-          token: ${{ secrets.GH_PAGES_TOKEN }}
+          token: ${{ env.GH_PAGES_TOKEN }}
           enablement: true
 
       - name: Configure GitHub Pages
-        if: ${{ secrets.GH_PAGES_TOKEN == '' }}
+        if: ${{ env.GH_PAGES_TOKEN == '' }}
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
