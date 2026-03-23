@@ -44,6 +44,18 @@ let frame = 0
 let score = ref(0)
 let gameOver = ref(false)
 
+function handleKeydown(e) {
+
+  if (gameOver.value) {
+    restart()
+    return
+  }
+
+  if (e.code === "Space") {
+    jump()
+  }
+}
+
 function restart() {
   dinosaur.y = 120
   dinosaur.vy = 0
@@ -161,16 +173,9 @@ onMounted(() => {
   const canvas = canvasRef.value
   ctx = canvas.getContext("2d")
 
-  window.addEventListener("keydown", e => {
+  window.addEventListener("keydown", handleKeydown)
 
-    if (gameOver.value) {
-      restart()
-      return
-    }
 
-    if (e.code === "Space") {
-      jump()
-    }
 
   })
 
