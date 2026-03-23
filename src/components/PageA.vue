@@ -43,6 +43,7 @@ let obstacles = []
 let frame = 0
 let score = ref(0)
 let gameOver = ref(false)
+let animationId = null
 
 function handleKeydown(e) {
 
@@ -161,7 +162,7 @@ function draw() {
 function gameLoop() {
   update()
   draw()
-  requestAnimationFrame(gameLoop)
+  animationId = requestAnimationFrame(gameLoop)
 }
 
 function goBack() {
@@ -175,11 +176,16 @@ onMounted(() => {
 
   window.addEventListener("keydown", handleKeydown)
 
-
-
-  })
-
   gameLoop()
+})
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeydown)
+
+  if (animationId !== null) {
+    cancelAnimationFrame(animationId)
+    animationId = null
+  }
 })
 
 </script>
