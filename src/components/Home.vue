@@ -2,7 +2,7 @@
   <div class="home-page">
     <h1>Root Page</h1>
     <button @click="goGamePage">Go to Page A</button>
-    <button @click="goB">Go to Settings</button>
+    <button @click="goSettingsPage">Go to Settings</button>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ function goGamePage() {
   router.push(ROUTE_PATHS.GAME)
 }
 
-function goB() {
+function goSettingsPage() {
   router.push(ROUTE_PATHS.SETTINGS)
 }
 </script>
