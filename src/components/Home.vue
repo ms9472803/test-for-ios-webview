@@ -2,7 +2,7 @@
   <div class="home-page">
     <h1>Root Page</h1>
     <button @click="goA">Go to Page A</button>
-    <button @click="goB">Go to Page B</button>
+    <button @click="goB">Go to Settings</button>
   </div>
 </template>
 
