@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <h1>Root Page</h1>
     <button @click="goA">Go to Page A</button>
     <button @click="goB">Go to Page B</button>
@@ -20,3 +20,33 @@ function goB() {
   router.push('/b')
 }
 </script>
+
+<style scoped>
+.home-page {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.home-page h1 {
+  margin: 0 0 1rem;
+}
+
+.home-page button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.home-page button:hover {
+  background: #f0f0f0;
+}
+</style>
