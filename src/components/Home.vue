@@ -13,7 +13,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 function goA() {
-  router.push('/a')
+  router.push('/game')
 }
 
 function goB() {
