@@ -126,11 +126,12 @@ function goBack() {
 .settings-header h1 {
   margin: 0;
   font-size: 2rem;
+  color: var(--color-heading);
 }
 
 .subtitle {
   margin: 0.5rem 0 0;
-  color: #4b5563;
+  color: var(--color-text);
 }
 
 .settings-card {
@@ -151,6 +152,7 @@ function goBack() {
 .field span,
 .toggle-title {
   font-weight: 600;
+  color: #111827;
 }
 
 .field input,
@@ -175,7 +177,7 @@ function goBack() {
 
 .toggle-copy {
   margin: 0.25rem 0 0;
-  color: #6b7280;
+  color: var(--color-text);
   font-size: 0.95rem;
 }
 
