@@ -44,7 +44,7 @@ yarn build
 This project uses GitHub Actions for CI/CD:
 
 - `CI` runs `yarn build` on every push and pull request
-- `Deploy to GitHub Pages` builds and publishes the `dist/` output from `main`
+- `Deploy to GitHub Pages` is triggered manually from GitHub Actions and requires a release version such as `0.0.1`
 
 ### GitHub Pages setup
 
@@ -54,7 +54,16 @@ Before the first deployment, enable Pages for the repository:
 2. In `Build and deployment`, set `Source` to `GitHub Actions`
 3. Save the change
 
-After this one-time setup, each push to `main` will deploy the latest production build automatically.
+After this one-time setup, deployments are started manually from the `Deploy to GitHub Pages` workflow.
+
+### Manual deployment
+
+1. Open `Actions > Deploy to GitHub Pages`
+2. Click `Run workflow`
+3. Enter `release_version` such as `0.0.1`
+4. Run the workflow to deploy the current `main` commit
+
+Each manual deployment also creates a GitHub Release tagged as `v<release_version>`.
 
 ### Optional automatic enablement
 
