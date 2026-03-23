@@ -118,8 +118,34 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  release:
+  version_commit:
     needs: deploy
+    runs-on: ubuntu-latest
+    outputs:
+      commit_sha: ${{ steps.version_commit.outputs.commit_sha }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Create version commit
+        id: version_commit
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit --allow-empty -m "Version $RELEASE_VERSION"
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+          echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  release:
+    needs: version_commit
     runs-on: ubuntu-latest
 
     steps:
@@ -141,6 +167,6 @@ jobs:
           fi
 
           gh release create "$tag" \
-            --target "$GITHUB_SHA" \
+            --target "${{ needs.version_commit.outputs.commit_sha }}" \
             --title "$tag" \
             --notes "Manual GitHub Pages deployment for version $RELEASE_VERSION"
