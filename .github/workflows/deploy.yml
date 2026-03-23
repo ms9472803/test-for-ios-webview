@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: CD
 
 run-name: Deploy ${{ inputs.release_version }} to GitHub Pages
 
