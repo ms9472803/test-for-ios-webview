@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <h1>Root Page</h1>
-    <button @click="goA">Go to Page A</button>
+    <button @click="goGamePage">Go to Page A</button>
     <button @click="goB">Go to Settings</button>
   </div>
 </template>
@@ -13,7 +13,7 @@ import { ROUTE_PATHS } from '../constants/routes'
 
 const router = useRouter()
 
-function goA() {
+function goGamePage() {
   router.push(ROUTE_PATHS.GAME)
 }
 
