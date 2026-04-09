@@ -24,26 +24,26 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ### Installation
 ```sh
-yarn install
+pnpm install
 ```
 
 ### Hot-Reload for Development
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 ### Compile
 
 ```sh
-yarn build
+pnpm build
 ```
 
 ## CI/CD
 
 This project uses GitHub Actions for CI/CD:
 
-- `CI` runs `yarn build` on every push and pull request
+- `CI` runs `pnpm build` on every push and pull request
 - `Deploy to GitHub Pages` is triggered manually from GitHub Actions and requires a release version such as `0.0.1`
 
 ### GitHub Pages setup
