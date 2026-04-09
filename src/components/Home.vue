@@ -1,8 +1,8 @@
 <template>
   <div class="home-page">
-    <h1>Root Page</h1>
-    <button @click="goGamePage">Go to Page A</button>
-    <button @click="goSettingsPage">Go to Settings</button>
+    <h1>Welcome</h1>
+    <button @click="goGamePage">Start</button>
+    <button @click="goSettingsPage">Settings</button>
   </div>
 </template>
 
