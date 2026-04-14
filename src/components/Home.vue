@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
-    <button @click="sendIOSMessage">Send iOS m1 message</button>
-    <button @click="sendIOSMessageName">Send iOS m2 message</button>
+    <button @click="sendIOSMessageM1">Send iOS m1 message</button>
+    <button @click="sendIOSMessageM2">Send iOS m2 message</button>
   </div>
 </template>
 
@@ -21,10 +21,10 @@ type IOSBridgeWindow = Window & {
   webkit?: {
     messageHandlers?: {
       m1?: {
-        postMessage: (message: string) => void
+        postM1: (message: string) => void
       }
       m2?: {
-        postMessage: (message: BridgeValue) => void
+        postM2: (message: BridgeValue) => void
       }
     }
   }
@@ -36,7 +36,7 @@ onMounted(() => {
   document.title = pageTitle
 })
 
-function sendIOSMessage() {
+function sendIOSMessageM1() {
   const iosWindow = window as IOSBridgeWindow
   const bridge = iosWindow.webkit?.messageHandlers?.m1
 
@@ -45,26 +45,26 @@ function sendIOSMessage() {
     return
   }
 
-  bridge.postMessage('message body : iosBridge m1')
+  bridge.postM1('iosBridgeM1')
 }
 
-function sendIOSMessageName() {
+function sendIOSMessageM2() {
     const iosWindow = window as IOSBridgeWindow
-  const messageName = iosWindow.webkit?.messageHandlers?.m2
+  const bridge = iosWindow.webkit?.messageHandlers?.m2
 
-  if (!messageName) {
+  if (!bridge) {
     console.warn('iOS m2 is not available in this environment')
     return
   }
 
-  messageName.postMessage({
-  action: 'iosBridgeM2',
-  userId: 123,
-  meta: {
-    source: 'web',
-    page: 'home'
-  }
-})
+  bridge.postM2({
+    action: 'iosBridgeM2',
+    userId: 123,
+    meta: {
+      source: 'web',
+      page: 'home'
+    }
+  })
 }
 
 </script>
@@ -90,10 +90,13 @@ function sendIOSMessageName() {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   width: min(100%, 320px);
+  transition: all 0.15s ease-out;
 }
 
 .home-page button:active {
   background: #e8e8e8;
+  transform: scale(0.96);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (hover: hover) {
