@@ -21,10 +21,10 @@ type IOSBridgeWindow = Window & {
   webkit?: {
     messageHandlers?: {
       m1?: {
-        postM1: (message: string) => void
+        postMessage: (message: string) => void
       }
       m2?: {
-        postM2: (message: BridgeValue) => void
+        postMessage: (message: BridgeValue) => void
       }
     }
   }
@@ -45,7 +45,7 @@ function sendIOSMessageM1() {
     return
   }
 
-  bridge.postM1('iosBridgeM1')
+  bridge.postMessage('iosBridgeM1')
 }
 
 function sendIOSMessageM2() {
@@ -57,7 +57,7 @@ function sendIOSMessageM2() {
     return
   }
 
-  bridge.postM2({
+  bridge.postMessage({
     action: 'iosBridgeM2',
     userId: 123,
     meta: {
