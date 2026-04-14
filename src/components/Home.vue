@@ -1,31 +1,70 @@
 <template>
   <div class="home-page">
-    <button @click="sendIOSMessage">Send iOS bridge message</button>
+    <button @click="sendIOSMessage">Send iOS m1 message</button>
+    <button @click="sendIOSMessageName">Send iOS m2 message</button>
   </div>
 </template>
 
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
+type BridgeValue =
+  | string
+  | number
+  | boolean
+  | null
+  | BridgeValue[]
+  | { [key: string]: BridgeValue }
+
 type IOSBridgeWindow = Window & {
   webkit?: {
     messageHandlers?: {
-      bridge?: {
+      m1?: {
         postMessage: (message: string) => void
+      }
+      m2?: {
+        postMessage: (message: BridgeValue) => void
       }
     }
   }
 }
 
+const pageTitle = 'Web Home'
+
+onMounted(() => {
+  document.title = pageTitle
+})
+
 function sendIOSMessage() {
   const iosWindow = window as IOSBridgeWindow
-  const bridge = iosWindow.webkit?.messageHandlers?.bridge
+  const bridge = iosWindow.webkit?.messageHandlers?.m1
 
   if (!bridge) {
-    console.warn('iOS bridge is not available in this environment')
+    console.warn('iOS m1 is not available in this environment')
     return
   }
 
-  bridge.postMessage('iosBridge')
+  bridge.postMessage('message body : iosBridge m1')
+}
+
+function sendIOSMessageName() {
+    const iosWindow = window as IOSBridgeWindow
+  const messageName = iosWindow.webkit?.messageHandlers?.m2
+
+  if (!messageName) {
+    console.warn('iOS m2 is not available in this environment')
+    return
+  }
+
+  messageName.postMessage({
+  action: 'iosBridgeM2',
+  userId: 123,
+  meta: {
+    source: 'web',
+    page: 'home'
+  }
+})
 }
 
 </script>
