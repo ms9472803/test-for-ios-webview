@@ -1,53 +1,65 @@
 <template>
   <div class="home-page">
-    <h1>Welcome</h1>
-    <button @click="goGamePage">Start</button>
-    <button @click="goSettingsPage">Settings</button>
+    <button @click="sendIOSMessage">Send iOS bridge message</button>
   </div>
 </template>
 
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { ROUTE_PATHS } from '../constants/routes'
-
-const router = useRouter()
-
-function goGamePage() {
-  router.push(ROUTE_PATHS.GAME)
+type IOSBridgeWindow = Window & {
+  webkit?: {
+    messageHandlers?: {
+      bridge?: {
+        postMessage: (message: string) => void
+      }
+    }
+  }
 }
 
-function goSettingsPage() {
-  router.push(ROUTE_PATHS.SETTINGS)
+function sendIOSMessage() {
+  const iosWindow = window as IOSBridgeWindow
+  const bridge = iosWindow.webkit?.messageHandlers?.bridge
+
+  if (!bridge) {
+    console.warn('iOS bridge is not available in this environment')
+    return
+  }
+
+  bridge.postMessage('iosBridge')
 }
+
 </script>
 
 <style scoped>
 .home-page {
-  display: grid;
-  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1rem;
   box-sizing: border-box;
-  text-align: center;
-}
-
-.home-page h1 {
-  margin: 0 0 1rem;
 }
 
 .home-page button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.75rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #fff;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 4vw, 1.125rem);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  width: min(100%, 320px);
 }
 
-.home-page button:hover {
-  background: #f0f0f0;
+.home-page button:active {
+  background: #e8e8e8;
+}
+
+@media (hover: hover) {
+  .home-page button:hover {
+    background: #f0f0f0;
+  }
 }
 </style>
