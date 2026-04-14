@@ -1,13 +1,23 @@
 <template>
   <div class="home-page">
-    <button @click="sendIOSMessageM1">Send iOS m1 message</button>
-    <button @click="sendIOSMessageM2">Send iOS m2 message</button>
+    <button
+      @click="sendIOSMessageM1"
+      @touchstart="isPressingM1 = true"
+      @touchend="isPressingM1 = false"
+      :class="{ pressed: isPressingM1 }"
+    >Send iOS m1 message</button>
+    <button
+      @click="sendIOSMessageM2"
+      @touchstart="isPressingM2 = true"
+      @touchend="isPressingM2 = false"
+      :class="{ pressed: isPressingM2 }"
+    >Send iOS m2 message</button>
   </div>
 </template>
 
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 type BridgeValue =
   | string
@@ -31,6 +41,8 @@ type IOSBridgeWindow = Window & {
 }
 
 const pageTitle = 'Web Home'
+const isPressingM1 = ref(false)
+const isPressingM2 = ref(false)
 
 onMounted(() => {
   document.title = pageTitle
@@ -93,8 +105,9 @@ function sendIOSMessageM2() {
   transition: all 0.15s ease-out;
 }
 
-.home-page button:active {
-  background: #e8e8e8;
+.home-page button:active,
+.home-page button.pressed {
+  background: #FFD700;
   transform: scale(0.96);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
