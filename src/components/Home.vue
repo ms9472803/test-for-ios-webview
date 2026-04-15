@@ -36,6 +36,9 @@ type IOSBridgeWindow = Window & {
       m2?: {
         postMessage: (message: BridgeValue) => void
       }
+      m3?: {
+        postMessage: (message: Any) => void
+      }
     }
   }
 }
