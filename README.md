@@ -1,6 +1,13 @@
-# Vue-dino-game
+# iOS WKWebView Bridge Test App
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is used to test interoperability between a Vue web page and iOS WKWebView.
+It focuses on validating JavaScript-to-native messaging via `window.webkit.messageHandlers` and related interaction behavior inside an iOS app WebView.
+
+## Purpose
+
+- Verify WKWebView JavaScript bridge communication
+- Validate message payload formats (string/object)
+- Confirm UI interaction feedback behavior inside iOS WebView
 
 ## Recommended IDE Setup
 
@@ -44,7 +51,7 @@ pnpm build
 This project uses GitHub Actions for CI/CD:
 
 - `CI` runs `pnpm build` on every push and pull request
-- `Deploy to GitHub Pages` is triggered manually from GitHub Actions and requires a release version such as `0.0.1`
+- `CD` is triggered manually from GitHub Actions and requires a `release_version` such as `0.0.1`
 
 ### GitHub Pages setup
 
@@ -54,14 +61,16 @@ Before the first deployment, enable Pages for the repository:
 2. In `Build and deployment`, set `Source` to `GitHub Actions`
 3. Save the change
 
-After this one-time setup, deployments are started manually from the `Deploy to GitHub Pages` workflow.
+After this one-time setup, deployments are started manually from the `CD` workflow.
 
 ### Manual deployment
 
-1. Open `Actions > Deploy to GitHub Pages`
+1. Open `Actions > CD`
 2. Click `Run workflow`
 3. Enter `release_version` such as `0.0.1`
 4. Run the workflow to deploy the current `main` commit
+
+Note: `release_version` is validated by the deploy workflow and is used for Git tag/release creation. It is separate from the `package.json` version field.
 
 Each manual deployment also pushes an empty commit with the message `Version <release_version>`.
 
